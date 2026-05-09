@@ -1,0 +1,83 @@
+/* app/globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface: #0f1117;
+  --surface-card: #181c25;
+  --surface-hover: #1e2230;
+  --border: #2a2d3a;
+  --border-light: #3a3e52;
+
+  --accent-blue: #5b7fe8;
+  --accent-green: #4ec994;
+  --accent-red: #e05555;
+  --accent-amber: #f0a020;
+  --accent-purple: #9b7fe8;
+
+  --text-primary: #f0f0f2;
+  --text-secondary: #9098b0;
+  --text-muted: #555d75;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--surface);
+  color: var(--text-primary);
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-light); }
+
+/* Animaciones base */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}
+
+/* Cards */
+.card {
+  background: var(--surface-card);
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+}
+
+/* Progress bars */
+.progress-track {
+  background: var(--border);
+  border-radius: 4px;
+  height: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* Número formateado CLP */
+.clp::before { content: '$ '; opacity: 0.6; font-size: 0.85em; }
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
