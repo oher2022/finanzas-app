@@ -1,5 +1,5 @@
 import { FixedBudget, FixedBudgetStatus } from '@/types'
-import { CheckCircle2, Circle, Clock } from 'lucide-react'
+import { CheckCircle2, Circle, Clock, CreditCard } from 'lucide-react'
 
 function fmt(n: number) {
   return `$${Math.abs(n).toLocaleString('es-CL')}`
@@ -48,20 +48,23 @@ function FixedBudgetRow({ budget }: { budget: FixedBudgetStatus }) {
 export function FixedBudgetPanel({
   fixedStatuses,
   savings,
+  debts,
   personalExpenses,
   totalIncome,
 }: {
   fixedStatuses: FixedBudgetStatus[]
   savings: FixedBudget[]
+  debts: FixedBudget[]
   personalExpenses: number
   totalIncome: number
 }) {
-  const hasAnything = fixedStatuses.length > 0 || savings.length > 0
+  const hasAnything = fixedStatuses.length > 0 || savings.length > 0 || debts.length > 0
   if (!hasAnything) return null
 
   const totalFixed = fixedStatuses.reduce((s, b) => s + b.amount, 0)
   const totalSavings = savings.reduce((s, b) => s + b.amount, 0)
-  const personalBudget = totalIncome - totalFixed - totalSavings
+  const totalDebts = debts.reduce((s, b) => s + b.amount, 0)
+  const personalBudget = totalIncome - totalFixed - totalSavings - totalDebts
   const personalAvailable = personalBudget - personalExpenses
   const personalPct =
     personalBudget > 0
@@ -89,6 +92,12 @@ export function FixedBudgetPanel({
           <div className="flex justify-between text-xs">
             <span className="text-gray-500">Ahorros</span>
             <span className="tabular-nums" style={{ color: '#4ec994' }}>-{fmt(totalSavings)}</span>
+          </div>
+        )}
+        {totalDebts > 0 && (
+          <div className="flex justify-between text-xs">
+            <span className="text-gray-500">Deudas</span>
+            <span className="tabular-nums" style={{ color: '#e05555' }}>-{fmt(totalDebts)}</span>
           </div>
         )}
         {totalIncome > 0 && (
@@ -149,6 +158,29 @@ export function FixedBudgetPanel({
                 <span className="flex-1 text-xs text-gray-300 truncate">{b.name}</span>
                 <span className="text-xs tabular-nums font-medium" style={{ color: b.color }}>
                   {fmt(b.amount)}/mes
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Deudas */}
+      {debts.length > 0 && (
+        <div className="border-t pt-2" style={{ borderColor: 'var(--border)' }}>
+          <p className="text-[10px] uppercase tracking-widest text-gray-600 mb-1">Deudas</p>
+          <div className="space-y-1.5">
+            {debts.map(b => (
+              <div key={b.id} className="flex items-center gap-2.5">
+                <div
+                  className="w-6 h-6 rounded-md flex items-center justify-center text-xs flex-shrink-0"
+                  style={{ background: `${b.color}20` }}
+                >
+                  {b.icon}
+                </div>
+                <span className="flex-1 text-xs text-gray-300 truncate">{b.name}</span>
+                <span className="text-xs tabular-nums font-medium" style={{ color: '#e05555' }}>
+                  -{fmt(b.amount)}/mes
                 </span>
               </div>
             ))}

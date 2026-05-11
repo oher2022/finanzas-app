@@ -19,7 +19,7 @@ export type FixedBudget = {
   color: string
   sort_order: number
   is_active: boolean
-  type: 'expense' | 'saving'
+  type: 'expense' | 'saving' | 'debt'
   created_at: string
 }
 

@@ -1,10 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { FixedBudget } from '@/types'
-import { Plus, Trash2, Pencil, Check, X, GripVertical, Wallet, PiggyBank } from 'lucide-react'
+import { Plus, Trash2, Pencil, Check, X, GripVertical, Wallet, PiggyBank, CreditCard } from 'lucide-react'
 
 const COLORS = ['#8aabf0', '#4ec994', '#f0a020', '#e05555', '#a78bfa', '#f472b6', '#38bdf8', '#fb923c']
-const DEFAULT_ICONS: Record<FixedBudget['type'], string> = { expense: '📌', saving: '🐷' }
+const DEFAULT_ICONS: Record<FixedBudget['type'], string> = { expense: '📌', saving: '🐷', debt: '💳' }
 
 function BudgetRow({
   budget,
@@ -274,7 +274,7 @@ function Section({
           className="mt-2 flex items-center gap-1.5 text-xs w-full justify-center py-1.5 rounded-lg border border-dashed transition-colors hover:border-blue-500"
           style={{ borderColor: 'var(--border)', color: 'var(--text-secondary)' }}
         >
-          <Plus size={11} /> Añadir {type === 'saving' ? 'meta de ahorro' : 'gasto fijo'}
+          <Plus size={11} /> Añadir {type === 'saving' ? 'meta de ahorro' : type === 'debt' ? 'deuda' : 'gasto fijo'}
         </button>
       )}
     </div>
@@ -321,19 +321,22 @@ export function FixedBudgetsPanel() {
 
   const expenses = items.filter(b => b.type === 'expense')
   const savings = items.filter(b => b.type === 'saving')
+  const debts = items.filter(b => b.type === 'debt')
   const totalExpenses = expenses.reduce((s, b) => s + b.amount, 0)
   const totalSavings = savings.reduce((s, b) => s + b.amount, 0)
+  const totalDebts = debts.reduce((s, b) => s + b.amount, 0)
+  const grandTotal = totalExpenses + totalSavings + totalDebts
 
   return (
     <div className="card p-5 space-y-5">
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-sm font-medium text-gray-200">Compromisos mensuales</h2>
-          <p className="text-xs text-gray-500 mt-0.5">Gastos fijos y metas de ahorro que se descuentan del sueldo</p>
+          <p className="text-xs text-gray-500 mt-0.5">Se descuentan del ingreso para calcular tu presupuesto disponible</p>
         </div>
-        {(totalExpenses + totalSavings) > 0 && (
+        {grandTotal > 0 && (
           <span className="text-xs tabular-nums text-gray-500">
-            Total: <span className="text-gray-200 font-medium">${(totalExpenses + totalSavings).toLocaleString('es-CL')}</span>
+            Total: <span className="text-gray-200 font-medium">${grandTotal.toLocaleString('es-CL')}</span>
           </span>
         )}
       </div>
@@ -362,6 +365,17 @@ export function FixedBudgetsPanel() {
             onDelete={handleDelete}
             onSave={handleSave}
             onAdd={data => handleAdd('saving', data)}
+          />
+          <div className="border-t" style={{ borderColor: 'var(--border)' }} />
+          <Section
+            title="Deudas"
+            icon={<CreditCard size={13} style={{ color: '#e05555' }} />}
+            items={debts}
+            type="debt"
+            total={totalDebts}
+            onDelete={handleDelete}
+            onSave={handleSave}
+            onAdd={data => handleAdd('debt', data)}
           />
         </div>
       )}

@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
   const { name, amount, icon = '📌', color = '#8aabf0', type = 'expense' } = body
 
   if (!name || !amount) return NextResponse.json({ error: 'Faltan campos' }, { status: 400 })
-  if (!['expense', 'saving'].includes(type)) return NextResponse.json({ error: 'Tipo inválido' }, { status: 400 })
+  if (!['expense', 'saving', 'debt'].includes(type)) return NextResponse.json({ error: 'Tipo inválido' }, { status: 400 })
 
   const { data, error } = await supabase
     .from('fixed_budgets')

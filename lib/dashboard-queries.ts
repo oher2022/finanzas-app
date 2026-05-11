@@ -356,6 +356,23 @@ export async function getSavingsAllocations(): Promise<FixedBudget[]> {
   return (data as FixedBudget[]) ?? []
 }
 
+export async function getDebts(): Promise<FixedBudget[]> {
+  const supabase = createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return []
+
+  const { data } = await supabase
+    .from('fixed_budgets')
+    .select('*')
+    .eq('user_id', user.id)
+    .eq('is_active', true)
+    .eq('type', 'debt')
+    .order('sort_order', { ascending: true })
+    .order('created_at', { ascending: true })
+
+  return (data as FixedBudget[]) ?? []
+}
+
 export async function getFixedBudgetStatuses(startDate: string, endDate: string): Promise<FixedBudgetStatus[]> {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()

@@ -12,6 +12,7 @@ import {
   getFixedBudgetStatuses,
   getPersonalExpenses,
   getSavingsAllocations,
+  getDebts,
 } from '@/lib/dashboard-queries'
 import { getPeriodBounds } from '@/lib/period-utils'
 import { BudgetProgress } from '@/components/dashboard/BudgetProgress'
@@ -38,7 +39,7 @@ export default async function DashboardPage({
   const settings = await getUserSettings()
   const period = getPeriodBounds(settings.period_start_day, offset)
 
-  const [periodSummary, incomes, dailyExpenses, categories, recentTxns, history, fixedStatuses, personalExpenses, savings] = await Promise.all([
+  const [periodSummary, incomes, dailyExpenses, categories, recentTxns, history, fixedStatuses, personalExpenses, savings, debts] = await Promise.all([
     getPeriodSummary(period.startStr, period.endStr),
     getIncomeEntries(period.startStr, period.endStr),
     getDailyExpenses(period.startStr, period.endStr),
@@ -48,6 +49,7 @@ export default async function DashboardPage({
     getFixedBudgetStatuses(period.startStr, period.endStr),
     getPersonalExpenses(period.startStr, period.endStr),
     getSavingsAllocations(),
+    getDebts(),
   ])
 
   return (
@@ -68,10 +70,11 @@ export default async function DashboardPage({
             periodStart={period.startStr}
             periodEnd={period.endStr}
           />
-          {(fixedStatuses.length > 0 || savings.length > 0) && (
+          {(fixedStatuses.length > 0 || savings.length > 0 || debts.length > 0) && (
             <FixedBudgetPanel
               fixedStatuses={fixedStatuses}
               savings={savings}
+              debts={debts}
               personalExpenses={personalExpenses}
               totalIncome={periodSummary.total_income}
             />
