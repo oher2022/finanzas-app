@@ -60,7 +60,7 @@ function ReimbursementInline({ txn }: { txn: Transaction }) {
       )}
       <button
         onClick={() => setOpen(true)}
-        className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[9px]"
+        className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[9px]"
         style={{ color: '#8aabf0' }}
       >
         <Coins size={9} /> abono
@@ -117,7 +117,7 @@ function FixedBudgetAssigner({ txn, budgets }: { txn: Transaction; budgets: Fixe
         <button
           onClick={() => setOpen(v => !v)}
           disabled={saving}
-          className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[9px]"
+          className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[9px]"
           style={{ color: '#8aabf0' }}
         >
           <Tag size={9} /> asignar
@@ -221,7 +221,7 @@ function DayColumn({
 
   return (
     <div
-      className="flex-shrink-0 w-40 flex flex-col"
+      className="flex-shrink-0 w-36 sm:w-40 flex flex-col"
       style={{ opacity: isEmpty ? 0.4 : 1 }}
     >
       {/* Day header */}

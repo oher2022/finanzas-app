@@ -27,7 +27,7 @@ export default async function SettingsPage() {
   return (
     <div className="min-h-screen">
       <Navbar user={user} />
-      <main className="max-w-2xl mx-auto px-4 py-6 space-y-5">
+      <main className="max-w-2xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5 pb-20 md:pb-6">
         <h1 className="text-xl font-medium text-gray-100">Configuración</h1>
         <PeriodSettingsPanel currentDay={settings?.period_start_day ?? 1} />
         <FixedBudgetsPanel />

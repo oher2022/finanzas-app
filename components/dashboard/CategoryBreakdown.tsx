@@ -21,7 +21,7 @@ export function CategoryBreakdown({ categories }: { categories: CategorySummary[
   return (
     <div className="card p-4">
       <h3 className="text-sm font-medium text-gray-300 mb-4">Por categoría</h3>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center gap-4">
         {/* Pie */}
         <div className="flex-shrink-0">
           <ResponsiveContainer width={110} height={110}>
@@ -46,7 +46,7 @@ export function CategoryBreakdown({ categories }: { categories: CategorySummary[
         </div>
 
         {/* Lista */}
-        <div className="flex-1 space-y-2">
+        <div className="flex-1 w-full space-y-2">
           {top.map(c => (
             <div key={c.category_id} className="flex items-center gap-2">
               <div

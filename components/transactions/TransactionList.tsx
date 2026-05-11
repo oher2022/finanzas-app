@@ -56,7 +56,7 @@ function FixedBudgetAssigner({ txn, budgets }: { txn: Transaction; budgets: Fixe
         <button
           onClick={() => setOpen(v => !v)}
           disabled={saving}
-          className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[10px] mt-0.5"
+          className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[10px] mt-0.5"
           style={{ color: '#8aabf0' }}
           title="Asignar gasto fijo"
         >
@@ -149,7 +149,7 @@ function ReimbursementInline({ txn }: { txn: Transaction }) {
       )}
       <button
         onClick={() => setOpen(true)}
-        className="opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[10px]"
+        className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity flex items-center gap-0.5 text-[10px]"
         style={{ color: '#8aabf0' }}
         title="Añadir abono"
       >

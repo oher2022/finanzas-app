@@ -29,7 +29,7 @@ export default async function TransactionsPage({
   return (
     <div className="min-h-screen">
       <Navbar user={user} />
-      <main className="max-w-full px-4 py-6">
+      <main className="max-w-full px-3 sm:px-4 py-4 sm:py-6 pb-20 md:pb-6">
         <div className="flex items-center justify-between mb-5 max-w-7xl mx-auto">
           <div className="flex items-center gap-3">
             <PeriodSelector label={period.label} offset={offset} />

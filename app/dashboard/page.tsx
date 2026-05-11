@@ -54,18 +54,15 @@ export default async function DashboardPage({
     <div className="min-h-screen">
       <Navbar user={user} />
 
-      <main className="max-w-7xl mx-auto px-4 py-6 space-y-5">
+      <main className="max-w-7xl mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-5 pb-20 md:pb-6">
         {/* Header */}
-        <div className="flex items-center justify-between flex-wrap gap-3">
-          <div className="flex items-center gap-3">
-            <PeriodSelector label={period.label} offset={offset} />
-            <p className="text-sm text-gray-500">Centro de control financiero</p>
-          </div>
+        <div className="flex items-center justify-between gap-3">
+          <PeriodSelector label={period.label} offset={offset} />
           <GmailSyncButton userId={user.id} />
         </div>
 
         {/* Fila principal: Ingresos + Gastos fijos + Categorías */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           <IncomePanel
             incomes={incomes}
             periodStart={period.startStr}
@@ -83,7 +80,7 @@ export default async function DashboardPage({
         </div>
 
         {/* Fila: Barras diarias + Historial */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
           <DailyChart data={dailyExpenses} average={Math.round(periodSummary.net_expenses / Math.max(dailyExpenses.filter(d => d.amount > 0).length, 1))} />
           <MonthlyHistoryChart data={history} />
         </div>

@@ -72,7 +72,7 @@ export function IncomePanel({
             style={{ borderColor: 'var(--border)' }}
             required
           />
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               placeholder="Monto (ej: 2.500.000)"
@@ -117,7 +117,7 @@ export function IncomePanel({
               </span>
               <button
                 onClick={() => handleDelete(inc.id)}
-                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded"
+                className="opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 rounded"
                 title="Eliminar"
               >
                 <Trash2 size={11} style={{ color: '#e05555' }} />

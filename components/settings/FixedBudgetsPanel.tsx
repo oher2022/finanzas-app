@@ -37,7 +37,7 @@ function BudgetRow({
   if (editing) {
     return (
       <div className="p-3 rounded-lg border" style={{ borderColor: color, background: `${color}10` }}>
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex flex-wrap items-center gap-2 mb-2">
           <input
             value={icon}
             onChange={e => setIcon(e.target.value)}
@@ -106,7 +106,7 @@ function BudgetRow({
       <p className="text-sm tabular-nums font-medium" style={{ color: budget.color }}>
         ${budget.amount.toLocaleString('es-CL')}
       </p>
-      <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
         <button
           onClick={() => setEditing(true)}
           className="p-1.5 rounded hover:bg-surface-hover"

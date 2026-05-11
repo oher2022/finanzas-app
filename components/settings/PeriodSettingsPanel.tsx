@@ -35,7 +35,7 @@ export function PeriodSettingsPanel({ currentDay }: { currentDay: number }) {
       <p className="text-xs text-gray-500">
         Define el día del mes en que inicia tu período. Por ejemplo, si tu tarjeta factura el 20, pon 20.
       </p>
-      <div className="flex items-center gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <div className="flex items-center gap-2">
           <span className="text-xs text-gray-400">Día de inicio:</span>
           <input
